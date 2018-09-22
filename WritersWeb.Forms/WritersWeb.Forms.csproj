@@ -198,6 +198,20 @@
     <Compile Include="View\frmTrack.designer.cs">
       <DependentUpon>frmTrack.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Sub\subFrmAddLead.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Sub\subFrmAddLead.designer.cs">
+      <DependentUpon>subFrmAddLead.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Sub\subFrmAuthorDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Sub\subFrmAuthorDetails.Designer.cs">
+      <DependentUpon>subFrmAuthorDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="_GlobalFunction\BaseFunction.cs" />
+    <Compile Include="_GlobalFunction\GlobalForm.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -264,6 +278,12 @@
     <EmbeddedResource Include="View\frmTrack.resx">
       <DependentUpon>frmTrack.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Sub\subFrmAddLead.resx">
+      <DependentUpon>subFrmAddLead.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Sub\subFrmAuthorDetails.resx">
+      <DependentUpon>subFrmAuthorDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -289,7 +309,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
-    <Folder Include="_GlobalFunction\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

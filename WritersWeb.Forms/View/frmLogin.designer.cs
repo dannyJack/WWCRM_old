@@ -63,7 +63,6 @@
             this.labelX4.TabIndex = 4;
             this.labelX4.Text = "-";
             this.labelX4.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.labelX4.Click += new System.EventHandler(this.labelX4_Click);
             // 
             // labelX5
             // 
@@ -82,7 +81,6 @@
             this.labelX5.TabIndex = 2;
             this.labelX5.Text = "X";
             this.labelX5.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.labelX5.Click += new System.EventHandler(this.labelX5_Click);
             // 
             // btnLogin
             // 
@@ -103,8 +101,7 @@
             this.btnLogin.SubItemsExpandWidth = 15;
             this.btnLogin.SymbolColor = System.Drawing.Color.White;
             this.btnLogin.SymbolSize = 15F;
-            this.btnLogin.TabIndex = 13;
-            this.btnLogin.TabStop = false;
+            this.btnLogin.TabIndex = 2;
             this.btnLogin.Text = "Sign In";
             this.btnLogin.TextColor = System.Drawing.Color.White;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
@@ -126,8 +123,9 @@
             this.txt_pword.Name = "txt_pword";
             this.txt_pword.PasswordChar = '•';
             this.txt_pword.Size = new System.Drawing.Size(336, 39);
-            this.txt_pword.TabIndex = 105;
+            this.txt_pword.TabIndex = 1;
             this.txt_pword.WatermarkText = "Type your password";
+            this.txt_pword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_pword_KeyPress);
             // 
             // labelX1
             // 
@@ -160,8 +158,9 @@
             this.txt_uname.Location = new System.Drawing.Point(661, 313);
             this.txt_uname.Name = "txt_uname";
             this.txt_uname.Size = new System.Drawing.Size(336, 39);
-            this.txt_uname.TabIndex = 103;
+            this.txt_uname.TabIndex = 0;
             this.txt_uname.WatermarkText = "Type your username";
+            this.txt_uname.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_pword_KeyPress);
             // 
             // labelX2
             // 
@@ -232,9 +231,6 @@
             this.sideNav.Style.ForeColor.Color = System.Drawing.Color.Gray;
             this.sideNav.Style.GradientAngle = 90;
             this.sideNav.TabIndex = 132;
-            this.sideNav.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ev_MouseDown);
-            this.sideNav.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ev_MouseMove);
-            this.sideNav.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ev_MouseUp);
             // 
             // panel1
             // 
@@ -302,9 +298,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ev_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ev_MouseMove);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ev_MouseUp);
+            this.Load += new System.EventHandler(this.frmLogin_Load);
             this.sideNav.ResumeLayout(false);
             this.ResumeLayout(false);
 
