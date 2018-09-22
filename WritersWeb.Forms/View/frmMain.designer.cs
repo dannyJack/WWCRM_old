@@ -87,9 +87,6 @@
             this.panelEx1.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
             this.panelEx1.Style.GradientAngle = 90;
             this.panelEx1.TabIndex = 0;
-            this.panelEx1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ev_MouseDown);
-            this.panelEx1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ev_MouseMove);
-            this.panelEx1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ev_MouseUp);
             // 
             // panelEx4
             // 
@@ -128,7 +125,6 @@
             this.labelX4.TabIndex = 4;
             this.labelX4.Text = "-";
             this.labelX4.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.labelX4.Click += new System.EventHandler(this.labelX4_Click);
             // 
             // labelX2
             // 
@@ -148,8 +144,6 @@
             this.labelX2.TabIndex = 3;
             this.labelX2.Text = "-";
             this.labelX2.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.labelX2.Click += new System.EventHandler(this.labelX2_Click);
-            this.labelX2.MouseHover += new System.EventHandler(this.labelX2_MouseHover);
             // 
             // labelX5
             // 
@@ -169,7 +163,6 @@
             this.labelX5.TabIndex = 2;
             this.labelX5.Text = "X";
             this.labelX5.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.labelX5.Click += new System.EventHandler(this.labelX5_Click);
             // 
             // panelEx2
             // 
