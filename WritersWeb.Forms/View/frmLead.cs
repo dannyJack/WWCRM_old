@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using WritersWeb.Func;
+
 namespace WritersWeb.View
 {
     public partial class frmLead : Form
@@ -15,12 +17,20 @@ namespace WritersWeb.View
         public frmLead()
         {
             InitializeComponent();
+            GForm.LoadForm(this, () => {
+                GForm.FrmMain.assignButtonClick(btnAddLead, new object[] { GForm.FrmSubLeadAdd }, true, () => {
+                    GForm.FrmSubLeadAdd.lblTitle.Text = "Add New Lead";
+                    GForm.FrmSubAuthorDetails.pnlMain.Parent = GForm.FrmSubLeadAdd.pnlStep1;
+                });
+                GForm.FrmMain.assignButtonClick(btnViewAuthor, new object[] { GForm.FrmSubAuthorDetails }, true, () => {
+                    GForm.FrmSubAuthorDetails.pnlMain.Parent = GForm.FrmSubAuthorDetails;
+                });
+            }, GForm.Type.Primary);
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void loadAuthor()
         {
-            frmMain ev = new frmMain();
-            ev.btn_MouseClick(sender as DevComponents.DotNetBar.ButtonX, e);
+
         }
     }
 }
