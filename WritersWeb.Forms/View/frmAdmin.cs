@@ -24,8 +24,8 @@ namespace WritersWeb.View
 
         private void btnAddAdmin_Click(object sender, EventArgs e)
         {
-            frmMain ev = new frmMain();
-            ev.btn_MouseClick(sender as DevComponents.DotNetBar.ButtonX, e);
+            //frmMain ev = new frmMain();
+            //ev.btn_MouseClick(sender as DevComponents.DotNetBar.ButtonX, e);
         }
     }
 }
