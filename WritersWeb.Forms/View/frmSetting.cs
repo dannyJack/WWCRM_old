@@ -10,17 +10,18 @@ using System.Windows.Forms;
 
 namespace WritersWeb.View
 {
-    public partial class frmSales : Form
+    public partial class frmSetting : Form
     {
-        public frmSales()
+        public frmSetting()
         {
             InitializeComponent();
+            this.graph();
         }
-
-        private void btnPurchase_Click(object sender, EventArgs e)
+        void graph()
         {
-            //frmMain ev = new frmMain();
-            //ev.btn_MouseClick(sender as DevComponents.DotNetBar.ButtonX, e);
+            this.chart1.Series["Sales"].Points.AddXY("Joe", 1000);
+            this.chart1.Series["Sales"].Points.AddXY("Daniel", 1500);
+            this.chart1.Series["Sales"].Points.AddXY("Jay-ar", 2000);
         }
     }
 }

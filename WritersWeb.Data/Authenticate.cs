@@ -18,6 +18,10 @@ namespace WritersWeb.Data
         public string Password { get; set; }
         public string Fullname { get; set; }
         public string GroupRights { get; set; }
+        public int IdEmployee { get; set; }
+        public string Lastname { get; set; }
+        public string Firstname { get; set; }
+        public string Middlename { get; set; }
 
         #endregion
 
@@ -46,11 +50,15 @@ namespace WritersWeb.Data
             Password = dr.GetString("Password");
             Fullname = dr.GetString("Fullname");
             GroupRights = dr.GetString("GroupRights");
+            IdEmployee = dr.GetInt32("IdEmployee");
+            Lastname = dr.GetString("strLastname");
+            Firstname = dr.GetString("strFirstname");
+            Middlename = dr.GetString("strMiddlename");
 
             //Mark this data as persisted in the data store
             MarkOld();
 
-            UserProfile.SetProperties(Username, Password, Fullname, GroupRights);
+            UserProfile.SetProperties(Username, Password, Fullname, GroupRights, IdEmployee, Lastname, Firstname, Middlename);
         }
 
         #endregion

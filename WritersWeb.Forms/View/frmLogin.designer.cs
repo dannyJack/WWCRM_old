@@ -63,7 +63,6 @@
             this.labelX4.TabIndex = 4;
             this.labelX4.Text = "-";
             this.labelX4.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.labelX4.Click += new System.EventHandler(this.labelX4_Click);
             // 
             // labelX5
             // 
@@ -82,7 +81,6 @@
             this.labelX5.TabIndex = 2;
             this.labelX5.Text = "X";
             this.labelX5.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.labelX5.Click += new System.EventHandler(this.labelX5_Click);
             // 
             // btnLogin
             // 
@@ -232,9 +230,6 @@
             this.sideNav.Style.ForeColor.Color = System.Drawing.Color.Gray;
             this.sideNav.Style.GradientAngle = 90;
             this.sideNav.TabIndex = 132;
-            this.sideNav.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ev_MouseDown);
-            this.sideNav.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ev_MouseMove);
-            this.sideNav.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ev_MouseUp);
             // 
             // panel1
             // 
@@ -302,9 +297,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ev_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ev_MouseMove);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ev_MouseUp);
+            this.Load += new System.EventHandler(this.frmLogin_Load);
             this.sideNav.ResumeLayout(false);
             this.ResumeLayout(false);
 

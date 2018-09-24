@@ -36,9 +36,7 @@
             this.labelX5 = new DevComponents.DotNetBar.LabelX();
             this.panelEx2 = new DevComponents.DotNetBar.PanelEx();
             this.panelEx5 = new DevComponents.DotNetBar.PanelEx();
-            this.buttonX2 = new DevComponents.DotNetBar.ButtonX();
-            this.buttonItem4 = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
+            this.btnAccountInfo = new DevComponents.DotNetBar.ButtonX();
             this.lblLogout = new DevComponents.DotNetBar.LabelX();
             this.labelX10 = new DevComponents.DotNetBar.LabelX();
             this.lblSymbol = new DevComponents.DotNetBar.LabelX();
@@ -59,6 +57,10 @@
             this.buttonX1 = new DevComponents.DotNetBar.ButtonX();
             this.panel2 = new System.Windows.Forms.Panel();
             this.mainWrap = new DevComponents.DotNetBar.PanelEx();
+            this.btnChangeProfiles = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
+            this.btnChangeProfile = new DevComponents.DotNetBar.ButtonItem();
+            this.btnChangePassword = new DevComponents.DotNetBar.ButtonItem();
             this.panelEx1.SuspendLayout();
             this.panelEx4.SuspendLayout();
             this.panelEx2.SuspendLayout();
@@ -87,9 +89,6 @@
             this.panelEx1.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
             this.panelEx1.Style.GradientAngle = 90;
             this.panelEx1.TabIndex = 0;
-            this.panelEx1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ev_MouseDown);
-            this.panelEx1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ev_MouseMove);
-            this.panelEx1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ev_MouseUp);
             // 
             // panelEx4
             // 
@@ -128,7 +127,6 @@
             this.labelX4.TabIndex = 4;
             this.labelX4.Text = "-";
             this.labelX4.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.labelX4.Click += new System.EventHandler(this.labelX4_Click);
             // 
             // labelX2
             // 
@@ -148,8 +146,6 @@
             this.labelX2.TabIndex = 3;
             this.labelX2.Text = "-";
             this.labelX2.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.labelX2.Click += new System.EventHandler(this.labelX2_Click);
-            this.labelX2.MouseHover += new System.EventHandler(this.labelX2_MouseHover);
             // 
             // labelX5
             // 
@@ -169,7 +165,6 @@
             this.labelX5.TabIndex = 2;
             this.labelX5.Text = "X";
             this.labelX5.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.labelX5.Click += new System.EventHandler(this.labelX5_Click);
             // 
             // panelEx2
             // 
@@ -196,7 +191,7 @@
             // 
             this.panelEx5.CanvasColor = System.Drawing.SystemColors.Control;
             this.panelEx5.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.panelEx5.Controls.Add(this.buttonX2);
+            this.panelEx5.Controls.Add(this.btnAccountInfo);
             this.panelEx5.Controls.Add(this.lblLogout);
             this.panelEx5.Controls.Add(this.labelX10);
             this.panelEx5.DisabledBackColor = System.Drawing.Color.Empty;
@@ -212,41 +207,29 @@
             this.panelEx5.Style.GradientAngle = 90;
             this.panelEx5.TabIndex = 21;
             // 
-            // buttonX2
+            // btnAccountInfo
             // 
-            this.buttonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.buttonX2.AutoExpandOnClick = true;
-            this.buttonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat;
-            this.buttonX2.FadeEffect = false;
-            this.buttonX2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonX2.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.None;
-            this.buttonX2.Location = new System.Drawing.Point(46, 4);
-            this.buttonX2.Name = "buttonX2";
-            this.buttonX2.Size = new System.Drawing.Size(167, 39);
-            this.buttonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.buttonX2.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.buttonItem4,
-            this.buttonItem1});
-            this.buttonX2.SubItemsExpandWidth = 15;
-            this.buttonX2.SymbolColor = System.Drawing.Color.Gainsboro;
-            this.buttonX2.SymbolSize = 12F;
-            this.buttonX2.TabIndex = 25;
-            this.buttonX2.TabStop = false;
-            this.buttonX2.Text = "Joe John Ferrolino";
-            this.buttonX2.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Left;
-            this.buttonX2.TextColor = System.Drawing.Color.Black;
-            // 
-            // buttonItem4
-            // 
-            this.buttonItem4.Name = "buttonItem4";
-            this.buttonItem4.Symbol = "";
-            this.buttonItem4.Text = "Change Profile";
-            // 
-            // buttonItem1
-            // 
-            this.buttonItem1.Name = "buttonItem1";
-            this.buttonItem1.Symbol = "";
-            this.buttonItem1.Text = "Change Password";
+            this.btnAccountInfo.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnAccountInfo.AutoExpandOnClick = true;
+            this.btnAccountInfo.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat;
+            this.btnAccountInfo.FadeEffect = false;
+            this.btnAccountInfo.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAccountInfo.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.None;
+            this.btnAccountInfo.Location = new System.Drawing.Point(46, 4);
+            this.btnAccountInfo.Name = "btnAccountInfo";
+            this.btnAccountInfo.Size = new System.Drawing.Size(167, 39);
+            this.btnAccountInfo.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnAccountInfo.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.btnChangeProfile,
+            this.btnChangePassword});
+            this.btnAccountInfo.SubItemsExpandWidth = 15;
+            this.btnAccountInfo.SymbolColor = System.Drawing.Color.Gainsboro;
+            this.btnAccountInfo.SymbolSize = 12F;
+            this.btnAccountInfo.TabIndex = 25;
+            this.btnAccountInfo.TabStop = false;
+            this.btnAccountInfo.Text = "Joe John Ferrolino";
+            this.btnAccountInfo.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Left;
+            this.btnAccountInfo.TextColor = System.Drawing.Color.Black;
             // 
             // lblLogout
             // 
@@ -357,7 +340,6 @@
             this.sideNav.Location = new System.Drawing.Point(0, 127);
             this.sideNav.Name = "sideNav";
             this.sideNav.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.sideNav.RightToLeftLayout = true;
             this.sideNav.Size = new System.Drawing.Size(207, 672);
             this.sideNav.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.sideNav.Style.BackColor1.Color = System.Drawing.SystemColors.InactiveCaptionText;
@@ -669,6 +651,49 @@
             this.mainWrap.Style.GradientAngle = 90;
             this.mainWrap.TabIndex = 22;
             // 
+            // btnChangeProfiles
+            // 
+            this.btnChangeProfiles.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.TextOnlyAlways;
+            this.btnChangeProfiles.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat;
+            this.btnChangeProfiles.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnChangeProfiles.Name = "btnChangeProfiles";
+            this.btnChangeProfiles.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.buttonItem1});
+            this.btnChangeProfiles.Text = "Change Profile";
+            // 
+            // buttonItem1
+            // 
+            this.buttonItem1.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.TextOnlyAlways;
+            this.buttonItem1.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat;
+            this.buttonItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.buttonItem1.Name = "buttonItem1";
+            this.buttonItem1.Text = "Change Password";
+            // 
+            // btnChangeProfile
+            // 
+            this.btnChangeProfile.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.TextOnlyAlways;
+            this.btnChangeProfile.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat;
+            this.btnChangeProfile.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnChangeProfile.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnChangeProfile.GlobalItem = false;
+            this.btnChangeProfile.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.None;
+            this.btnChangeProfile.Name = "btnChangeProfile";
+            this.btnChangeProfile.Stretch = true;
+            this.btnChangeProfile.Text = "Change Profile";
+            this.btnChangeProfile.Click += new System.EventHandler(this.btnChangeProfile_Click);
+            // 
+            // btnChangePassword
+            // 
+            this.btnChangePassword.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.TextOnlyAlways;
+            this.btnChangePassword.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat;
+            this.btnChangePassword.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnChangePassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnChangePassword.GlobalItem = false;
+            this.btnChangePassword.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.None;
+            this.btnChangePassword.Name = "btnChangePassword";
+            this.btnChangePassword.Text = "Change Password";
+            this.btnChangePassword.Click += new System.EventHandler(this.btnChangePassword_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -709,9 +734,7 @@
         private DevComponents.DotNetBar.PanelEx panelEx5;
         private DevComponents.DotNetBar.LabelX lblLogout;
         private DevComponents.DotNetBar.LabelX labelX10;
-        private DevComponents.DotNetBar.ButtonX buttonX2;
-        private DevComponents.DotNetBar.ButtonItem buttonItem4;
-        private DevComponents.DotNetBar.ButtonItem buttonItem1;
+        private DevComponents.DotNetBar.ButtonX btnAccountInfo;
         private System.Windows.Forms.Panel panel2;
         private DevComponents.DotNetBar.ButtonX btnSetting;
         private DevComponents.DotNetBar.ButtonX btnReports;
@@ -727,5 +750,9 @@
         private DevComponents.DotNetBar.ButtonX buttonX1;
         public DevComponents.DotNetBar.PanelEx mainWrap;
         public DevComponents.DotNetBar.LabelX lblCrump;
+        private DevComponents.DotNetBar.ButtonItem btnChangeProfile;
+        private DevComponents.DotNetBar.ButtonItem btnChangePassword;
+        private DevComponents.DotNetBar.ButtonItem btnChangeProfiles;
+        private DevComponents.DotNetBar.ButtonItem buttonItem1;
     }
 }
