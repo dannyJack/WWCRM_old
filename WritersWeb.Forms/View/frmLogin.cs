@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using WritersWeb.Func;
 using WritersWeb.Base;
 using WritersWeb.Data;
 using WritersWeb.Controller;
@@ -19,6 +20,14 @@ namespace WritersWeb.View
         public frmLogin()
         {
             InitializeComponent();
+        }
+
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+            GForm.Current = GForm.FrmLogin = this;
+            GForm.AddDraggable(sideNav);
+            GForm.AddButtonClose(labelX5);
+            GForm.AddButtonMaximizeMinimize(labelX4);
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -39,49 +48,19 @@ namespace WritersWeb.View
                     //((WritersWeb.Data.Authenticate)new System.Collections.Generic.Mscorlib_CollectionDebugView<object>(auth).Items[0]).Fullname
                     resObj = Account.AuthResult(authParams);
 
-                    frmMain open = new frmMain();
-                    open.ShowDialog();
+                    this.Hide();
+                    GForm.FrmMain.ShowDialog();
+                    this.Show();
+                    GForm.Current = this;
+
+                    //frmMain open = new frmMain();
+                    //open.ShowDialog();
                 }
             }
             else
             {
                 MessageBox.Show("Fields missing!!!");
             }       
-        }
-
-        private bool isHold = false;
-        private int[] mousepost = { 0, 0 };
-
-        private void ev_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                isHold = true;
-                mousepost[0] = e.X;
-                mousepost[1] = e.Y;
-            }
-            else isHold = false;
-        }
-
-        private void ev_MouseUp(object sender, MouseEventArgs e)
-        {
-            isHold = false;
-        }
-
-        private void ev_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (isHold)
-                this.Location = new Point(this.Location.X + e.X - mousepost[0], this.Location.Y + e.Y - mousepost[1]);
-        }
-
-        private void labelX5_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void labelX4_Click(object sender, EventArgs e)
-        {
-            WindowState = FormWindowState.Minimized;
         }
     }
 }

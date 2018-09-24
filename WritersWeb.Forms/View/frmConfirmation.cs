@@ -10,22 +10,21 @@ using System.Windows.Forms;
 
 namespace WritersWeb.View
 {
-    public partial class frmAdmin : Form
+    public partial class frmConfirmation : Form
     {
-        public frmAdmin()
+        public frmConfirmation()
         {
             InitializeComponent();
         }
 
-        private void frmAdmins_Load(object sender, EventArgs e)
+        private void lblCancel_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
-        private void btnAddAdmin_Click(object sender, EventArgs e)
+        private void labelX1_Click(object sender, EventArgs e)
         {
-            //frmMain ev = new frmMain();
-            //ev.btn_MouseClick(sender as DevComponents.DotNetBar.ButtonX, e);
+
         }
     }
 }

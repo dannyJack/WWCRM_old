@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WritersWeb.View;
 
+using WritersWeb.Func;
+using WritersWeb.Base;
+
 namespace WritersWeb.View
 {
     public partial class frmMain : Form
@@ -17,321 +20,158 @@ namespace WritersWeb.View
         {
             InitializeComponent();
         }
-        
+
         //frmDashboard dash;
-        frmAdmin admin;
-        frmEmployee employee;
-        frmLead lead;
-        frmFulfillment fulfillment;
-        frmProduction production;
-        frmPurchase purchased;
-        frmSales sales;
-        frmTrack track;
-        frmMemo memo;
+        //frmAdmin admin;
+        //frmEmployee employee;
+        //frmLead lead;
+        //frmFulfillment fulfillment;
+        //frmProduction production;
+        //frmPurchase purchased;
+        //frmSales sales;
+        //frmTrack track;
+        //frmMemo memo;
         //frmSetting setting;
-        frmReports report;
+        //frmReports report;
 
 
-        frmAddLead lead_add;
-        frmAddEmployee employee_add;
-        frmAddAdmin admin_add;
-        frmAddMemo memo_add;
-        frmPayment payment;
+        //frmAddLead lead_add;
+        //frmAddEmployee employee_add;
+        //frmAddAdmin admin_add;
+        //frmAddMemo memo_add;
+        //frmPayment payment;
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            assign_btn(btnDashboard);
-            assign_btn(btnAdmin);
-            assign_btn(btnEmployee);
-            assign_btn(btnSales);
-            assign_btn(btnLeads);
-            assign_btn(btnProduction);
-            assign_btn(btnTrack);
-            assign_btn(btnMemo);
-            assign_btn(btnFulfillment);
-            assign_btn(btnReports);
-            assign_btn(btnSetting);
+            GForm.Current = this;
+            GForm.LoadForm(this, () => {
+                GForm.AddDraggable(panelEx1);
+                GForm.AddButtonClose(labelX5);
+                GForm.AddButtonMaximumMinimum(labelX2);
+                GForm.AddButtonMaximizeMinimize(labelX4);
+
+                //Primary Menus
+                assignButtonClick(btnDashboard, new object[] { GForm.FrmDashboard, "Dashboard", "" });
+                assignButtonClick(btnAdmin, new object[] { GForm.FrmAdmin, "Administrator", "" });
+                assignButtonClick(btnEmployee, new object[] { GForm.FrmEmployee, "Manage Employee", "" });
+                assignButtonClick(btnSales, new object[] { GForm.FrmSales, "Manage Sales", "" });
+                assignButtonClick(btnLeads, new object[] { GForm.FrmLead, "Manage Leads", "" });
+                assignButtonClick(btnFulfillment, new object[] { GForm.FrmFulfillment, "Manage Fulfillment", "" });
+                assignButtonClick(btnProduction, new object[] { GForm.FrmProduction, "Manage Projects", "" });
+                assignButtonClick(btnTrack, new object[] { GForm.FrmTrack, "Track Sales", "" });
+                assignButtonClick(btnMemo, new object[] { GForm.FrmMemo, "Manage Memo", "" });
+                assignButtonClick(btnSetting, new object[] { GForm.FrmSetting, "Settings", "" });
+                assignButtonClick(btnReports, new object[] { GForm.FrmReports, "Manage Reports", "" });
+                btnAccountInfo.Text = UserProfile.Fullname;
+            }, GForm.Type.Main);
+            btnDashboard.PerformClick();
+
+            //assign_btn(btnDashboard);
+            //assign_btn(btnAdmin);
+            //assign_btn(btnEmployee);
+            //assign_btn(btnSales);
+            //assign_btn(btnLeads);
+            //assign_btn(btnProduction);
+            //assign_btn(btnTrack);
+            //assign_btn(btnMemo);
+            //assign_btn(btnFulfillment);
+            //assign_btn(btnReports);
+            //assign_btn(btnSetting);
+            //btnAccountInfo.Text = UserProfile.Fullname;
         }
 
-        private void assign_btn(DevComponents.DotNetBar.ButtonX btn)
-        {
-            btn.MouseLeave += new System.EventHandler(btn_MouseLeave);
-            btn.MouseEnter += new System.EventHandler(btn_MouseEnter);
-            btn.Click += new System.EventHandler(btn_MouseClick);
-        }
-
-        private void closeFrms()
-        {
-            if (lead != null) lead.pnlMain.Hide(); 
-            //if (dash != null) dash.pnlMain.Hide(); 
-            if (admin != null) admin.pnlMain.Hide();
-            if (employee != null) employee.pnlMain.Hide();
-            if (fulfillment != null) fulfillment.pnlMain.Hide(); 
-            if (production != null) production.pnlMain.Hide(); 
-            if (purchased != null) purchased.pnlMain.Hide(); 
-            if (sales != null) sales.pnlMain.Hide(); 
-            if (track != null) track.pnlMain.Hide(); 
-            if (memo != null) memo.pnlMain.Hide(); 
-            //if (setting != null) setting.pnlMain.Hide(); 
-            if (report != null) report.pnlMain.Hide();
-        }
-
-        private void btn_MouseEnter(object sender, EventArgs e)
-        {
-            var btn_convert = sender as DevComponents.DotNetBar.ButtonX;
-            btn_convert.BackColor = Color.LightSeaGreen;
-            btn_convert.SymbolColor = Color.White;
-        }
-
-        private void btn_MouseLeave(object sender, EventArgs e)
+        private void btn_MouseClick(object sender, EventArgs e)
         {
             var btn_convert = sender as DevComponents.DotNetBar.ButtonX;
-            btn_convert.BackColor = Color.Transparent;
-            btn_convert.SymbolColor = Color.Gainsboro;
+            if (btn_convert.Tag != null)
+            {
+                string form_name = BaseFunction.Tag.Get(btn_convert, BaseFunction.Tag.Key.FormName).ToString();
+                var form = GForm.forms[form_name];
+                if ((bool)BaseFunction.Tag.Get(btn_convert, BaseFunction.Tag.Key.IsPopUpForm))
+                {
+                    GForm.Current = form;
+                    var ctrl = form.Controls.Find("pnlMain", true);
+                    if (ctrl.Length != 0)
+                        ctrl[0].Visible = true;
+                    //GForm.BackDrop.Show();
+                    //form.Visible = true;
+                    //form.MdiParent = GForm.BackDrop;
+                    GForm.BackDrop.Show();
+                    form.ShowDialog();
+                    GForm.Current = this;
+                }
+                else
+                {
+                    GForm.CloseFormPanels();
+                    var ctrl = form.Controls.Find("pnlMain", true);
+                    var ctrl_transfered = this.Controls.Find("pnlMain" + form_name, true);
+                    if (ctrl.Length != 0 || ctrl_transfered.Length != 0)
+                    {
+                        if (ctrl.Length != 0)
+                        {
+                            ctrl[0].Name = ctrl[0].Name + form_name;
+                            ctrl[0].Parent = this.mainWrap;
+                            ctrl[0].Show();
+                        }
+                        else
+                        {
+                            ctrl_transfered[0].Name = ctrl_transfered[0].Name;
+                            ctrl_transfered[0].Show();
+                        }
+                        if (BaseFunction.Tag.Get(btn_convert, BaseFunction.Tag.Key.BreadcrumbLabel) != null)
+                            lblCrump.Text = BaseFunction.Tag.Get(btn_convert, BaseFunction.Tag.Key.BreadcrumbLabel).ToString();
+                        if (BaseFunction.Tag.Get(btn_convert, BaseFunction.Tag.Key.BreadcrumbLabel) != null)
+                            lblSymbol.Symbol = BaseFunction.Tag.Get(btn_convert, BaseFunction.Tag.Key.BreadcrumbIcon).ToString();
+                    }
+                    else { MessageBox.Show("Message: Panel Main does not exist"); }
+                }
+            }
+            else { MessageBox.Show("Message: " + btn_convert.Name + " Event Not Assigned for this button"); }
         }
- 
-        public void btn_MouseClick(object sender, EventArgs e)
+
+        private void assignButtonClick(Control ctrl, object[] obj)
         {
-            var btn_convert = sender as DevComponents.DotNetBar.ButtonX;
-            string n = btn_convert.Name;
-            if (n == "btnDashboard")
+            ctrl.MouseLeave += new EventHandler((object sender, EventArgs e) =>
             {
-                closeFrms();
-                lblCrump.Text = "Dashboard";
-                lblSymbol.Symbol = "";
-                //if (dash != null) {
-                //    dash.pnlMain.Show();
-                //} 
-                //else
-                //{
-                //    dash = new frmDashboard();
-                //    dash.pnlMain.Parent = this.mainWrap;
-                //}
-            }
-            else if (n == "btnAdmin")
+                var btn_convert = sender as DevComponents.DotNetBar.ButtonX;
+                btn_convert.BackColor = Color.Transparent;
+                btn_convert.SymbolColor = Color.Gainsboro;
+            });
+            ctrl.MouseEnter += new EventHandler((object sender, EventArgs e) =>
             {
-                closeFrms();
-                lblCrump.Text = "Administrator";
-                lblSymbol.Symbol = "";
-                if (admin != null)
-                {
-                    admin.pnlMain.Show();
-                }
-                else
-                {
-                    admin = new frmAdmin();
-                    admin.pnlMain.Parent = this.mainWrap;
-                }
-            }
-            else if (n == "btnEmployee")
-            {
-                closeFrms();
-                lblCrump.Text = "Manage Employee";
-                lblSymbol.Symbol = "";
-                if (employee != null)
-                {
-                    employee.pnlMain.Show();
-                }
-                else
-                {
-                    employee = new frmEmployee();
-                    employee.pnlMain.Parent = this.mainWrap;
-                }
-            }
-            else if (n == "btnSales")
-            {
-                closeFrms();
-                lblCrump.Text = "Manage Sales";
-                lblSymbol.Symbol = "";
-                if (sales != null)
-                {
-                    sales.pnlMain.Show();
-                }
-                else
-                {
-                    sales = new frmSales();
-                    sales.pnlMain.Parent = this.mainWrap;
-                }
-            }
-            else if (n == "btnLeads")
-            {
-                closeFrms();
-                lblCrump.Text = "Manage Leads";
-                lblSymbol.Symbol = "";
-                if (lead != null)
-                {
-                    lead.pnlMain.Show();
-                }
-                else
-                {
-                    lead = new frmLead();
-                    lead.pnlMain.Parent = this.mainWrap;
-                }
-            }
-            else if (n == "btnFulfillment")
-            {
-                closeFrms();
-                lblCrump.Text = "Manage Fulfillment";
-                lblSymbol.Symbol = "";
-                if (fulfillment != null)
-                {
-                    fulfillment.pnlMain.Show();
-                }
-                else
-                {
-                    fulfillment = new frmFulfillment();
-                    fulfillment.pnlMain.Parent = this.mainWrap;
-                }
-            }
-            else if (n == "btnProduction")
-            {
-                closeFrms();
-                lblCrump.Text = "Manage Projects";
-                lblSymbol.Symbol = "";
-                if (production != null)
-                {
-                    production.pnlMain.Show();
-                }
-                else
-                {
-                    production = new frmProduction();
-                    production.pnlMain.Parent = this.mainWrap;
-                }
-            }
-            else if (n == "btnTrack")
-            {
-                closeFrms();
-                lblCrump.Text = "Track Sales";
-                lblSymbol.Symbol = "";
-                if (track != null)
-                {
-                    track.pnlMain.Show();
-                }
-                else
-                {
-                    track = new frmTrack();
-                    track.pnlMain.Parent = this.mainWrap;
-                }
-            }
-            else if (n == "btnMemo")
-            {
-                closeFrms();
-                lblCrump.Text = "Manage Memo";
-                lblSymbol.Symbol = "";
-                if (memo != null)
-                {
-                    memo.pnlMain.Show();
-                }
-                else
-                {
-                    memo = new frmMemo();
-                    memo.pnlMain.Parent = this.mainWrap;
-                }
-            }
-            else if (n == "btnSetting")
-            {
-                closeFrms();
-                lblCrump.Text = "Settings";
-                lblSymbol.Symbol = "";
-                //if (setting != null)
-                //{
-                //    setting.pnlMain.Show();
-                //}
-                //else
-                //{
-                //    setting = new frmSetting();
-                //    setting.pnlMain.Parent = this.mainWrap;
-                //}
-            }
-            else if (n == "btnReports")
-            {
-                closeFrms();
-                lblCrump.Text = "Manage Reports";
-                lblSymbol.Symbol = "";
-                if (report != null)
-                {
-                    report.pnlMain.Show();
-                }
-                else
-                {
-                    report = new frmReports();
-                    report.pnlMain.Parent = this.mainWrap;
-                }
-            }
-            else if (n == "btnAddLead")
-            {
-                lead_add = new frmAddLead();
-                lead_add.ShowDialog();
-            }
-            else if (n == "btnAddEmployee")
-            {
-                employee_add = new frmAddEmployee();
-                employee_add.ShowDialog();
-            }
-            else if (n == "btnAddAdmin")
-            {
-                admin_add = new frmAddAdmin();
-                admin_add.ShowDialog();
-            }
-            else if (n == "btnAddMemo")
-            {
-                memo_add = new frmAddMemo();
-                memo_add.ShowDialog();
-            }
-            else if (n == "btnPurchase")
-            {
-                payment = new frmPayment();
-                payment.ShowDialog();
-            }
-
+                var btn_convert = sender as DevComponents.DotNetBar.ButtonX;
+                btn_convert.BackColor = Color.LightSeaGreen;
+                btn_convert.SymbolColor = Color.White;
+            });
+            assignButtonClick(ctrl, obj, false);
         }
 
-        private void labelX5_Click(object sender, EventArgs e)
+        public void assignButtonClick(Control ctrl, object[] obj, bool isPopUpForm)
         {
-            this.Close();
+            BaseFunction.Tag.Set(ctrl, BaseFunction.Tag.Key.FormName, (obj[0] as Form).Name);
+            BaseFunction.Tag.Set(ctrl, BaseFunction.Tag.Key.IsPopUpForm, isPopUpForm);
+            if (obj.Length >= 2)
+                BaseFunction.Tag.Set(ctrl, BaseFunction.Tag.Key.BreadcrumbLabel, obj[1]);
+            if (obj.Length >= 3)
+                BaseFunction.Tag.Set(ctrl, BaseFunction.Tag.Key.BreadcrumbIcon, obj[2]);
+
+            ctrl.Click += new EventHandler(btn_MouseClick);
         }
 
-        private void labelX2_Click(object sender, EventArgs e)
+        private void btnChangeProfile_Click(object sender, EventArgs e)
         {
-            WindowState = FormWindowState.Maximized;
-            MinimumSize = this.Size;
-            MaximumSize = this.Size;
+            frmProfile profile = new frmProfile();
+            GForm.BackDrop.Show();
+            profile.ShowDialog();
+
+            
         }
 
-        private void labelX2_MouseHover(object sender, EventArgs e)
+        private void btnChangePassword_Click(object sender, EventArgs e)
         {
-            labelX2.SymbolColor = Color.DarkCyan;
+            frmChangePassword cp = new frmChangePassword();
+            GForm.BackDrop.Show();
+            cp.ShowDialog();
         }
-
-        private void labelX4_Click(object sender, EventArgs e)
-        {
-            WindowState = FormWindowState.Minimized;
-        }
-
-        private bool isHold = false;
-        private int[] mousepost = { 0, 0 };
-
-        private void ev_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                isHold = true;
-                mousepost[0] = e.X;
-                mousepost[1] = e.Y;
-            }
-            else isHold = false;
-        }
-
-        private void ev_MouseUp(object sender, MouseEventArgs e)
-        {
-            isHold = false;
-        }
-
-        private void ev_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (isHold)
-                this.Location = new Point(this.Location.X + e.X - mousepost[0], this.Location.Y + e.Y - mousepost[1]);
-        }
-
     }
 }

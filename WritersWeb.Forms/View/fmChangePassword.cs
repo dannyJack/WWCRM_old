@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace WritersWeb.Forms
+namespace WritersWeb.View
 {
-    public partial class Form1 : Form
+    public partial class frmChangePassword : Form
     {
-        public Form1()
+        public frmChangePassword()
         {
             InitializeComponent();
+        }
+
+        private void lblClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
