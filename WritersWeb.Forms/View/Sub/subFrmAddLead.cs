@@ -17,12 +17,15 @@ namespace WritersWeb.View
         public subFrmAddLead()
         {
             InitializeComponent();
-            GForm.LoadForm(this, () =>
+            GForm.LoadForm(this, GForm.Type.Sub, () =>
             {
-                GForm.AddDraggable(pnlMain);
+                GForm.HideFormBorder(this);
+                GForm.AddDraggable(this.pnlMain);
                 GForm.AddDraggable(lblTitle);
-                GForm.AddButtonClose(lblClose);
-            }, GForm.Type.Sub);
+                GForm.AddButtonClose(btnClose);
+            }, () => {
+                GForm.SubFrmAuthorDetails.txtLName.Focus();
+            });
         }
     }
 }

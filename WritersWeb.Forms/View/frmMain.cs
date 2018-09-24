@@ -47,7 +47,7 @@ namespace WritersWeb.View
         private void frmMain_Load(object sender, EventArgs e)
         {
             GForm.Current = this;
-            GForm.LoadForm(this, () => {
+            GForm.LoadForm(this, GForm.Type.Main, () => {
                 GForm.AddDraggable(panelEx1);
                 GForm.AddButtonClose(labelX5);
                 GForm.AddButtonMaximumMinimum(labelX2);
@@ -58,7 +58,7 @@ namespace WritersWeb.View
                 assignButtonClick(btnAdmin, new object[] { GForm.FrmAdmin, "Administrator", "" });
                 assignButtonClick(btnEmployee, new object[] { GForm.FrmEmployee, "Manage Employee", "" });
                 assignButtonClick(btnSales, new object[] { GForm.FrmSales, "Manage Sales", "" });
-                assignButtonClick(btnLeads, new object[] { GForm.FrmLead, "Manage Leads", "" });
+                assignButtonClick(btnLeads, new object[] { GForm.FrmLead, "Manage Leads", "" },true);
                 assignButtonClick(btnFulfillment, new object[] { GForm.FrmFulfillment, "Manage Fulfillment", "" });
                 assignButtonClick(btnProduction, new object[] { GForm.FrmProduction, "Manage Projects", "" });
                 assignButtonClick(btnTrack, new object[] { GForm.FrmTrack, "Track Sales", "" });
@@ -66,7 +66,7 @@ namespace WritersWeb.View
                 assignButtonClick(btnSetting, new object[] { GForm.FrmSetting, "Settings", "" });
                 assignButtonClick(btnReports, new object[] { GForm.FrmReports, "Manage Reports", "" });
                 btnAccountInfo.Text = UserProfile.Fullname;
-            }, GForm.Type.Main);
+            });
             btnDashboard.PerformClick();
         }
 
@@ -75,12 +75,35 @@ namespace WritersWeb.View
             var btn_convert = sender as DevComponents.DotNetBar.ButtonX;
             if (btn_convert.Tag != null)
             {
-                string form_name = BaseFunction.Tag.Get(btn_convert, BaseFunction.Tag.Key.FormName).ToString();
-                var form = GForm.forms[form_name];
-                object obj = BaseFunction.Tag.Get(btn_convert, BaseFunction.Tag.Key.FuncBeforeShow);
-                if (obj != null) (obj as Action)();
-                if ((bool)BaseFunction.Tag.Get(btn_convert, BaseFunction.Tag.Key.IsPopUpForm))
+                string form_name = BFunc.Tag.Get(btn_convert, BFunc.Tag.Key.ParentForm).ToString();
+                if (btn_convert.Parent.Name == this.sideNav.Name)
                 {
+                    if (!BFunc.Tag.Is(this, BFunc.Tag.Key.LastForm, null))
+                    {
+                        string last_frm = (string)BFunc.Tag.Get(this, BFunc.Tag.Key.LastForm);
+                        if (GForm.forms.ContainsKey(last_frm))
+                        {
+                            var ctrl_transfered = this.Controls.Find("pnlMain" + last_frm, true);
+                            if (ctrl_transfered.Length != 0)
+                            {
+                                //MessageBox.Show("last_form"+ last_frm);
+                                ctrl_transfered[0].Name = "pnlMain";
+                                ctrl_transfered[0].Parent = GForm.forms[last_frm];
+                            }
+                        }
+                    }
+                    BFunc.Tag.Set(this, BFunc.Tag.Key.LastForm, form_name);
+                }
+                if (!GForm.forms.ContainsKey(form_name)) GForm.FetchForm(form_name, true);
+
+                var form = GForm.forms[form_name];
+
+                object obj = BFunc.Tag.Get(btn_convert, BFunc.Tag.Key.FuncBeforeShow);
+                if (obj != null) (obj as Action)();
+
+                if (BFunc.Tag.Is(btn_convert, BFunc.Tag.Key.IsPopUpForm,true))
+                {
+                    BFunc.Tag.Set(form, BFunc.Tag.Key.IsPopUpForm, true);
                     GForm.Current = form;
                     var ctrl = form.Controls.Find("pnlMain", true);
                     if (ctrl.Length != 0)
@@ -88,6 +111,8 @@ namespace WritersWeb.View
                     form.StartPosition = FormStartPosition.CenterScreen;
                     GForm.BackDrop.Show();
                     form.ShowDialog();
+                    obj = BFunc.Tag.Get(btn_convert, BFunc.Tag.Key.FuncOnClose);
+                    if (obj != null) (obj as Action)();
                     GForm.Current = this;
                 }
                 else
@@ -108,10 +133,10 @@ namespace WritersWeb.View
                             ctrl_transfered[0].Name = ctrl_transfered[0].Name;
                             ctrl_transfered[0].Show();
                         }
-                        if (BaseFunction.Tag.Get(btn_convert, BaseFunction.Tag.Key.BreadcrumbLabel) != null)
-                            lblCrump.Text = BaseFunction.Tag.Get(btn_convert, BaseFunction.Tag.Key.BreadcrumbLabel).ToString();
-                        if (BaseFunction.Tag.Get(btn_convert, BaseFunction.Tag.Key.BreadcrumbLabel) != null)
-                            lblSymbol.Symbol = BaseFunction.Tag.Get(btn_convert, BaseFunction.Tag.Key.BreadcrumbIcon).ToString();
+                        if (BFunc.Tag.Get(btn_convert, BFunc.Tag.Key.BreadcrumbLabel) != null)
+                            lblCrump.Text = BFunc.Tag.Get(btn_convert, BFunc.Tag.Key.BreadcrumbLabel).ToString();
+                        if (BFunc.Tag.Get(btn_convert, BFunc.Tag.Key.BreadcrumbLabel) != null)
+                            lblSymbol.Symbol = BFunc.Tag.Get(btn_convert, BFunc.Tag.Key.BreadcrumbIcon).ToString();
                     }
                     else { MessageBox.Show("Message: Panel Main does not exist"); }
                 }
@@ -119,32 +144,40 @@ namespace WritersWeb.View
             else { MessageBox.Show("Message: " + btn_convert.Name + " Event Not Assigned for this button"); }
         }
 
-        private void assignButtonClick(Control ctrl, object[] obj)
+        public void assignButtonClick(Control ctrl, Form frm, bool isFormReloadOnClick = false, bool isPopUpForm = false, Action funcBeforeShow = null, Action funcOnClose = null)
         {
-            ctrl.MouseLeave += new EventHandler((object sender, EventArgs e) =>
-            {
-                var btn_convert = sender as DevComponents.DotNetBar.ButtonX;
-                btn_convert.BackColor = Color.Transparent;
-                btn_convert.SymbolColor = Color.Gainsboro;
-            });
-            ctrl.MouseEnter += new EventHandler((object sender, EventArgs e) =>
-            {
-                var btn_convert = sender as DevComponents.DotNetBar.ButtonX;
-                btn_convert.BackColor = Color.LightSeaGreen;
-                btn_convert.SymbolColor = Color.White;
-            });
-            assignButtonClick(ctrl, obj, false);
+            assignButtonClick(ctrl, new object[] { frm }, isFormReloadOnClick, isPopUpForm, funcBeforeShow, funcOnClose);
         }
 
-        public void assignButtonClick(Control ctrl, object[] obj, bool isPopUpForm, Action funcBeforeShow = null)
+        public void assignButtonClick(Control ctrl, object[] obj,bool isFormReloadOnClick = false, bool isPopUpForm = false, Action funcBeforeShow = null, Action funcOnClose = null)
         {
-            BaseFunction.Tag.Set(ctrl, BaseFunction.Tag.Key.FormName, (obj[0] as Form).Name);
-            BaseFunction.Tag.Set(ctrl, BaseFunction.Tag.Key.IsPopUpForm, isPopUpForm);
-            BaseFunction.Tag.Set(ctrl, BaseFunction.Tag.Key.FuncBeforeShow, funcBeforeShow);
+            string frm_name = (obj[0] as Form).Name;
+            BFunc.Tag.Set(ctrl, BFunc.Tag.Key.ParentForm, frm_name);
+            BFunc.Tag.Set(ctrl, BFunc.Tag.Key.IsPopUpForm, isPopUpForm);
+            BFunc.Tag.Set(ctrl, BFunc.Tag.Key.FuncBeforeShow, funcBeforeShow);
+            BFunc.Tag.Set(ctrl, BFunc.Tag.Key.FuncOnClose, funcOnClose);
+            BFunc.Tag.Set(GForm.forms[frm_name], BFunc.Tag.Key.IsFormReloadOnClick, isFormReloadOnClick);
+
             if (obj.Length >= 2)
-                BaseFunction.Tag.Set(ctrl, BaseFunction.Tag.Key.BreadcrumbLabel, obj[1]);
+                BFunc.Tag.Set(ctrl, BFunc.Tag.Key.BreadcrumbLabel, obj[1]);
             if (obj.Length >= 3)
-                BaseFunction.Tag.Set(ctrl, BaseFunction.Tag.Key.BreadcrumbIcon, obj[2]);
+                BFunc.Tag.Set(ctrl, BFunc.Tag.Key.BreadcrumbIcon, obj[2]);
+
+            if(ctrl.Parent.Name == this.sideNav.Name)
+            {
+                ctrl.MouseLeave += new EventHandler((object sender, EventArgs e) =>
+                {
+                    var btn_convert = sender as DevComponents.DotNetBar.ButtonX;
+                    btn_convert.BackColor = Color.Transparent;
+                    btn_convert.SymbolColor = Color.Gainsboro;
+                });
+                ctrl.MouseEnter += new EventHandler((object sender, EventArgs e) =>
+                {
+                    var btn_convert = sender as DevComponents.DotNetBar.ButtonX;
+                    btn_convert.BackColor = Color.LightSeaGreen;
+                    btn_convert.SymbolColor = Color.White;
+                });
+            }
 
             ctrl.Click += new EventHandler(btn_MouseClick);
         }

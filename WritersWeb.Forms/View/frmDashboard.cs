@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using WritersWeb.Func;
+
 namespace WritersWeb.View
 {
     public partial class frmDashboard : Form
@@ -15,7 +17,12 @@ namespace WritersWeb.View
         public frmDashboard()
         {
             InitializeComponent();
-            this.graph();
+            GForm.LoadForm(this, GForm.Type.Primary, () =>
+            {
+                //MessageBox.Show("Dashboard");
+
+            });
+                this.graph();
         }
 
         void graph()

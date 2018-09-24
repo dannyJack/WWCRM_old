@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gridLead = new DevComponents.DotNetBar.Controls.DataGridViewX();
             this.btnAddLead = new DevComponents.DotNetBar.ButtonX();
             this.txtMName = new DevComponents.DotNetBar.Controls.TextBoxX();
@@ -43,10 +43,11 @@
             this.txtLName = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX3 = new DevComponents.DotNetBar.LabelX();
             this.txtFName = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.btnAddLeadExistingAuthor = new DevComponents.DotNetBar.ButtonX();
             this.labelX2 = new DevComponents.DotNetBar.LabelX();
             this.txtPhone = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.labelX4 = new DevComponents.DotNetBar.LabelX();
-            this.buttonX2 = new DevComponents.DotNetBar.ButtonX();
+            this.btnUpload = new DevComponents.DotNetBar.ButtonX();
             this.tabItem1 = new DevComponents.DotNetBar.TabItem(this.components);
             this.tabControlPanel2 = new DevComponents.DotNetBar.TabControlPanel();
             this.dataGridViewX1 = new DevComponents.DotNetBar.Controls.DataGridViewX();
@@ -55,7 +56,6 @@
             this.tabItem4 = new DevComponents.DotNetBar.TabItem(this.components);
             this.tabControlPanel3 = new DevComponents.DotNetBar.TabControlPanel();
             this.tabItem3 = new DevComponents.DotNetBar.TabItem(this.components);
-            this.buttonX1 = new DevComponents.DotNetBar.ButtonX();
             ((System.ComponentModel.ISupportInitialize)(this.gridLead)).BeginInit();
             this.pnlMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabControl1)).BeginInit();
@@ -72,14 +72,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gridLead.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.gridLead.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.gridLead.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.gridLead.DefaultCellStyle = dataGridViewCellStyle5;
             this.gridLead.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.gridLead.Location = new System.Drawing.Point(1, 154);
             this.gridLead.Name = "gridLead";
@@ -238,14 +238,14 @@
             this.tabControlPanel1.Controls.Add(this.txtLName);
             this.tabControlPanel1.Controls.Add(this.labelX3);
             this.tabControlPanel1.Controls.Add(this.txtFName);
-            this.tabControlPanel1.Controls.Add(this.buttonX1);
+            this.tabControlPanel1.Controls.Add(this.btnAddLeadExistingAuthor);
             this.tabControlPanel1.Controls.Add(this.btnAddLead);
             this.tabControlPanel1.Controls.Add(this.labelX2);
             this.tabControlPanel1.Controls.Add(this.txtPhone);
             this.tabControlPanel1.Controls.Add(this.txtMName);
             this.tabControlPanel1.Controls.Add(this.labelX4);
             this.tabControlPanel1.Controls.Add(this.lblSearch);
-            this.tabControlPanel1.Controls.Add(this.buttonX2);
+            this.tabControlPanel1.Controls.Add(this.btnUpload);
             this.tabControlPanel1.Controls.Add(this.pnlCondition);
             this.tabControlPanel1.Controls.Add(this.gridLead);
             this.tabControlPanel1.DisabledBackColor = System.Drawing.Color.Empty;
@@ -332,6 +332,29 @@
             this.txtFName.Size = new System.Drawing.Size(212, 31);
             this.txtFName.TabIndex = 1;
             // 
+            // btnAddLeadExistingAuthor
+            // 
+            this.btnAddLeadExistingAuthor.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnAddLeadExistingAuthor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddLeadExistingAuthor.AutoExpandOnClick = true;
+            this.btnAddLeadExistingAuthor.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.btnAddLeadExistingAuthor.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat;
+            this.btnAddLeadExistingAuthor.FadeEffect = false;
+            this.btnAddLeadExistingAuthor.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAddLeadExistingAuthor.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.None;
+            this.btnAddLeadExistingAuthor.Location = new System.Drawing.Point(544, 113);
+            this.btnAddLeadExistingAuthor.Name = "btnAddLeadExistingAuthor";
+            this.btnAddLeadExistingAuthor.Shape = new DevComponents.DotNetBar.RoundRectangleShapeDescriptor(15);
+            this.btnAddLeadExistingAuthor.Size = new System.Drawing.Size(262, 31);
+            this.btnAddLeadExistingAuthor.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnAddLeadExistingAuthor.SubItemsExpandWidth = 15;
+            this.btnAddLeadExistingAuthor.SymbolColor = System.Drawing.Color.WhiteSmoke;
+            this.btnAddLeadExistingAuthor.SymbolSize = 12F;
+            this.btnAddLeadExistingAuthor.TabIndex = 4;
+            this.btnAddLeadExistingAuthor.Text = "ADD EXISTING AUTHOR AS LEAD";
+            this.btnAddLeadExistingAuthor.TextColor = System.Drawing.Color.White;
+            // 
             // labelX2
             // 
             this.labelX2.BackColor = System.Drawing.Color.Transparent;
@@ -378,27 +401,28 @@
             this.labelX4.TabIndex = 112;
             this.labelX4.Text = "PHONE #:";
             // 
-            // buttonX2
+            // btnUpload
             // 
-            this.buttonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.buttonX2.AutoExpandOnClick = true;
-            this.buttonX2.BackColor = System.Drawing.Color.LightSeaGreen;
-            this.buttonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat;
-            this.buttonX2.FadeEffect = false;
-            this.buttonX2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonX2.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.None;
-            this.buttonX2.Location = new System.Drawing.Point(378, 76);
-            this.buttonX2.Name = "buttonX2";
-            this.buttonX2.Shape = new DevComponents.DotNetBar.RoundRectangleShapeDescriptor(15);
-            this.buttonX2.Size = new System.Drawing.Size(160, 31);
-            this.buttonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.buttonX2.SubItemsExpandWidth = 15;
-            this.buttonX2.SymbolColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonX2.SymbolSize = 12F;
-            this.buttonX2.TabIndex = 118;
-            this.buttonX2.TabStop = false;
-            this.buttonX2.Text = "UPLOAD EXCEL";
-            this.buttonX2.TextColor = System.Drawing.Color.White;
+            this.btnUpload.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnUpload.AutoExpandOnClick = true;
+            this.btnUpload.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.btnUpload.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat;
+            this.btnUpload.FadeEffect = false;
+            this.btnUpload.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpload.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.None;
+            this.btnUpload.Location = new System.Drawing.Point(378, 76);
+            this.btnUpload.Name = "btnUpload";
+            this.btnUpload.Shape = new DevComponents.DotNetBar.RoundRectangleShapeDescriptor(15);
+            this.btnUpload.Size = new System.Drawing.Size(160, 31);
+            this.btnUpload.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnUpload.SubItemsExpandWidth = 15;
+            this.btnUpload.SymbolColor = System.Drawing.Color.WhiteSmoke;
+            this.btnUpload.SymbolSize = 12F;
+            this.btnUpload.TabIndex = 118;
+            this.btnUpload.TabStop = false;
+            this.btnUpload.Text = "UPLOAD EXCEL";
+            this.btnUpload.TextColor = System.Drawing.Color.White;
+            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
             // 
             // tabItem1
             // 
@@ -432,14 +456,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewX1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridViewX1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewX1.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewX1.DefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridViewX1.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(215)))), ((int)(((byte)(229)))));
             this.dataGridViewX1.Location = new System.Drawing.Point(1, 1);
             this.dataGridViewX1.Name = "dataGridViewX1";
@@ -500,29 +524,6 @@
             this.tabItem3.Name = "tabItem3";
             this.tabItem3.Text = "Submitted Leads";
             // 
-            // buttonX1
-            // 
-            this.buttonX1.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.buttonX1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonX1.AutoExpandOnClick = true;
-            this.buttonX1.BackColor = System.Drawing.Color.LightSeaGreen;
-            this.buttonX1.ColorTable = DevComponents.DotNetBar.eButtonColor.Flat;
-            this.buttonX1.FadeEffect = false;
-            this.buttonX1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonX1.HotTrackingStyle = DevComponents.DotNetBar.eHotTrackingStyle.None;
-            this.buttonX1.Location = new System.Drawing.Point(544, 113);
-            this.buttonX1.Name = "buttonX1";
-            this.buttonX1.Shape = new DevComponents.DotNetBar.RoundRectangleShapeDescriptor(15);
-            this.buttonX1.Size = new System.Drawing.Size(262, 31);
-            this.buttonX1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.buttonX1.SubItemsExpandWidth = 15;
-            this.buttonX1.SymbolColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonX1.SymbolSize = 12F;
-            this.buttonX1.TabIndex = 4;
-            this.buttonX1.Text = "ADD EXISTING AUTHOR AS LEAD";
-            this.buttonX1.TextColor = System.Drawing.Color.White;
-            // 
             // frmLead
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -548,7 +549,7 @@
         private DevComponents.DotNetBar.Controls.TextBoxX txtMName;
         private DevComponents.DotNetBar.LabelX lblSearch;
         public DevComponents.DotNetBar.PanelEx pnlMain;
-        private DevComponents.DotNetBar.ButtonX buttonX2;
+        private DevComponents.DotNetBar.ButtonX btnUpload;
         public DevComponents.DotNetBar.Controls.DataGridViewX gridLead;
         public DevComponents.DotNetBar.PanelEx pnlCondition;
         private DevComponents.DotNetBar.TabControl tabControl1;
@@ -557,7 +558,6 @@
         private DevComponents.DotNetBar.TabItem tabItem2;
         private DevComponents.DotNetBar.TabControlPanel tabControlPanel1;
         private DevComponents.DotNetBar.TabItem tabItem1;
-        private DevComponents.DotNetBar.Controls.TextBoxX txtLName;
         private DevComponents.DotNetBar.LabelX labelX3;
         private DevComponents.DotNetBar.Controls.TextBoxX txtFName;
         private DevComponents.DotNetBar.LabelX labelX2;
@@ -568,6 +568,7 @@
         private DevComponents.DotNetBar.TabItem tabItem3;
         private DevComponents.DotNetBar.Controls.TextBoxX txtPhone;
         private DevComponents.DotNetBar.LabelX labelX4;
-        private DevComponents.DotNetBar.ButtonX buttonX1;
+        private DevComponents.DotNetBar.ButtonX btnAddLeadExistingAuthor;
+        public DevComponents.DotNetBar.Controls.TextBoxX txtLName;
     }
 }

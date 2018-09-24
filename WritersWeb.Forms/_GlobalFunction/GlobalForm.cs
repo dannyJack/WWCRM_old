@@ -63,16 +63,45 @@ namespace WritersWeb.Func
         public static frmReports FrmReports { get { return (forms.ContainsKey("frmReports") ? forms["frmReports"] as frmReports : FrmReports = new frmReports()); } set { forms[value.Name] = value; } }
 
         //SUB FORM
-        public static subFrmAddLead FrmSubLeadAdd { get { return (forms.ContainsKey("subFrmAddLead") ? forms["subFrmAddLead"] as subFrmAddLead : FrmSubLeadAdd = new subFrmAddLead()); } set { forms[value.Name] = value; } }
+        public static subFrmAddLead SubFrmAddLead { get { return (forms.ContainsKey("subFrmAddLead") ? forms["subFrmAddLead"] as subFrmAddLead : SubFrmAddLead = new subFrmAddLead()); } set { forms[value.Name] = value; } }
         public static frmAddEmployee FrmSubEmployeeAdd { get { return (forms.ContainsKey("frmAddEmployee") ? forms["frmAddEmployee"] as frmAddEmployee : FrmSubEmployeeAdd = new frmAddEmployee()); } set { forms[value.Name] = value; } }
         public static frmAddMemo FrmSubMemoAdd { get { return (forms.ContainsKey("frmAddMemo") ? forms["frmAddMemo"] as frmAddMemo : FrmSubMemoAdd = new frmAddMemo()); } set { forms[value.Name] = value; } }
         public static frmPayment FrmSubPayment { get { return (forms.ContainsKey("frmPayment") ? forms["frmPayment"] as frmPayment : FrmSubPayment = new frmPayment()); } set { forms[value.Name] = value; } }
         public static frmPurchase FrmSubPurchase { get { return (forms.ContainsKey("frmPurchase") ? forms["frmPurchase"] as frmPurchase : FrmSubPurchase = new frmPurchase()); } set { forms[value.Name] = value; } }
         public static frmAddAdmin FrmSubAdminAdd { get { return (forms.ContainsKey("frmAddAdmin") ? forms["frmAddAdmin"] as frmAddAdmin : FrmSubAdminAdd = new frmAddAdmin()); } set { forms[value.Name] = value; } }
-        public static subFrmAuthorDetails FrmSubAuthorDetails { get { return (forms.ContainsKey("subFrmAuthorDetails") ? forms["subFrmAuthorDetails"] as subFrmAuthorDetails : FrmSubAuthorDetails = new subFrmAuthorDetails()); } set { forms[value.Name] = value; } }
+        public static subFrmAuthorDetails SubFrmAuthorDetails { get { return (forms.ContainsKey("subFrmAuthorDetails") ? forms["subFrmAuthorDetails"] as subFrmAuthorDetails : SubFrmAuthorDetails = new subFrmAuthorDetails()); } set { forms[value.Name] = value; } }
         #endregion
 
         #region Public Functions
+
+        public static Form FetchForm(string formName, bool isNew)
+        {
+            if (isNew) forms.Remove(formName);
+            Form f;
+            if (formName == "frmLogin") f = FrmLogin;
+            else if (formName == "frmMain") f = FrmMain;
+            else if (formName == "frmDashboard") f = FrmDashboard;
+            else if (formName == "frmAdmin") f = FrmAdmin;
+            else if (formName == "frmEmployee") f = FrmEmployee;
+            else if (formName == "frmSales") f = FrmSales;
+            else if (formName == "frmLead") f = FrmLead;
+            else if (formName == "frmFulfillment") f = FrmFulfillment;
+            else if (formName == "frmProduction") f = FrmProduction;
+            else if (formName == "frmTrack") f = FrmTrack;
+            else if (formName == "frmMemo") f = FrmMemo;
+            else if (formName == "frmSetting") f = FrmSetting;
+            else if (formName == "frmReports") f = FrmReports;
+            else if (formName == "subFrmAddLead") f = SubFrmAddLead = new subFrmAddLead();
+            else if (formName == "frmSubEmployeeAdd") f = FrmSubEmployeeAdd;
+            else if (formName == "frmSubMemoAdd") f = FrmSubMemoAdd;
+            else if (formName == "frmSubPayment") f = FrmSubPayment;
+            else if (formName == "frmSubPurchase") f = FrmSubPurchase;
+            else if (formName == "frmSubAdminAdd") f = FrmSubAdminAdd;
+            else if (formName == "subFrmAuthorDetails") f = SubFrmAuthorDetails;
+            else f = null;
+            return f;
+        }
+
         public static Form Current
         {
             get { return forms[frmCURRENT]; }
@@ -106,7 +135,7 @@ namespace WritersWeb.Func
                 var ctrl = Current.Controls.Find(c.Name, true);
                 if (ctrl.Length != 0)
                 {
-                    BaseFunction.Tag.Set(ctrl[0], BaseFunction.Tag.Key.SyncForm, syncForm);
+                    BFunc.Tag.Set(ctrl[0], BFunc.Tag.Key.SyncForm, syncForm);
                     ctrl[0].MouseDown += new System.Windows.Forms.MouseEventHandler(ev_MouseDown);
                     ctrl[0].MouseMove += new System.Windows.Forms.MouseEventHandler(ev_MouseMove);
                     ctrl[0].MouseUp += new System.Windows.Forms.MouseEventHandler(ev_MouseUp);
@@ -116,7 +145,7 @@ namespace WritersWeb.Func
 
         public static void AddButtonClose(Control c)
         {
-            c.Tag = Current.Name;
+            BFunc.Tag.Set(c, BFunc.Tag.Key.ParentForm, Current.Name);
             c.Click += new System.EventHandler(ev_FormClose);
         }
 
@@ -147,7 +176,7 @@ namespace WritersWeb.Func
             }
         }
 
-        public static void LoadForm(Form frm, Action callBackFunc = null, string FormType = null)
+        public static void LoadForm(Form frm, string FormType = null, Action callBackFuncOnFirstLoad = null, Action callBackFuncOnLoad = null, Action callBackFuncOnClose = null)
         {
             if (FormType != Type.Main)
             {
@@ -162,10 +191,26 @@ namespace WritersWeb.Func
                 {
                     pnl.VisibleChanged += new EventHandler((object s, EventArgs e) =>
                     {
-                        if (pnl.Visible && frm.Tag == null)
+                        if (pnl.Visible)
                         {
-                            frm.Tag = "Loaded";
-                            if (callBackFunc != null) callBackFunc();
+                            if (BFunc.Tag.Is(frm, BFunc.Tag.Key.IsFormLoaded,null))
+                            {
+                                BFunc.Tag.Set(frm, BFunc.Tag.Key.FormType, FormType);
+                                BFunc.Tag.Set(frm, BFunc.Tag.Key.IsFormLoaded, true);
+                                if (callBackFuncOnFirstLoad != null) callBackFuncOnFirstLoad();
+                            }
+                            if (callBackFuncOnLoad != null)
+                                callBackFuncOnLoad();
+                        }
+                        else
+                        {
+                            if (callBackFuncOnClose != null)
+                            {
+                                BFunc.Tag.Set(frm, BFunc.Tag.Key.IsFormLoaded, null);
+                                if (BFunc.Tag.Is(frm, BFunc.Tag.Key.IsPopUpForm, true))
+                                    MessageBox.Show("Invalid Callback function onClose for this form. This form is popup type. Popup type close event should be initialize on the button sender.");
+                                else callBackFuncOnClose();
+                            }
                         }
                     });
                 }
@@ -175,7 +220,7 @@ namespace WritersWeb.Func
                 if (frm.Tag == null)
                 {
                     frm.Tag = "Loaded";
-                    if (callBackFunc != null) callBackFunc();
+                    if (callBackFuncOnFirstLoad != null) callBackFuncOnFirstLoad();
                 }
             }
         }
@@ -192,7 +237,7 @@ namespace WritersWeb.Func
             if (mouse_isHold)
             {
                 var ctrl = (Control)sender;
-                var IsSyncForm = BaseFunction.Tag.Get(ctrl, BaseFunction.Tag.Key.SyncForm);
+                var IsSyncForm = BFunc.Tag.Get(ctrl, BFunc.Tag.Key.SyncForm);
                 if (IsSyncForm != null ? (bool)IsSyncForm == false : false)
                     ctrl.Location = new System.Drawing.Point(ctrl.Location.X + e.X - mouse_position[0], ctrl.Location.Y + e.Y - mouse_position[1]);
                 else
@@ -218,11 +263,22 @@ namespace WritersWeb.Func
 
         private static void ev_FormClose(object sender, EventArgs e)
         {
-            var btn_tag = (sender as Control).Tag;
-            if (btn_tag != null)
+            var ctrl = sender as Control;
+            BackDrop.Hide();
+            if(BFunc.Tag.Get(ctrl, BFunc.Tag.Key.ParentForm) != null)
             {
-                BackDrop.Hide();
-                (forms[btn_tag.ToString()] as Form).Close();
+                string frm_name = BFunc.Tag.Get(ctrl, BFunc.Tag.Key.ParentForm).ToString();
+                if (forms.ContainsKey(frm_name))
+                {
+                    Form frm = (forms[frm_name] as Form);
+                    frm.Close();
+                    if (BFunc.Tag.Is(frm, BFunc.Tag.Key.IsFormReloadOnClick, true))
+                    {
+                        //MessageBox.Show(frm.Name);
+                        //frm.Dispose();
+                        forms.Remove(frm_name);
+                    }
+                }
             }
         }
 
